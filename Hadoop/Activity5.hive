@@ -1,0 +1,26 @@
+-- Create and use Database
+create DATABASE office;
+--use office;
+
+-- Drop table
+DROP TABLE employee;
+
+-- Create employee table
+CREATE TABLE employee (Id INT, name STRING, dept STRING, yoj INT, salary INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' TBLPROPERTIES ("skip.header.line.count"="1");  
+
+-- Describe table
+DESCRIBE employee;
+
+-- Upload the data from local file into table
+LOAD DATA LOCAL INPATH '/root/EmpData.csv' INTO TABLE employee; 
+
+-- To see the data that has been loaded into the employee table
+SELECT * FROM employee;
+SELECT count(*) FROM employee;
+
+-- Export to Hdfs directory
+INSERT OVERWRITE DIRECTORY '/user/subarna/HiveOutput' ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' SELECT * FROM emp.employee;
+
+-- Export to local Direcotry
+INSERT OVERWRITE LOCAL DIRECTORY '/root/HiveOutput' ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' SELECT * FROM emp.employee;
