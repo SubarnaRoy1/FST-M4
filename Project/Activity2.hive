@@ -1,0 +1,10 @@
+DROP TABLE episodeIV;
+
+CREATE TABLE episodeIV (name STRING, line STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+
+LOAD DATA LOCAL INPATH 'root/inputs/episodeIV_dialouges.txt' INTO TABLE episodeIV;
+
+--Count number of dialogues with name "Luke"
+INSERT OVERWRITE DIRECTORY '/user/subarna/HiveProjectOutput2'
+select count(*) from episodes where INSTR(desc, 'Luke')>0;
